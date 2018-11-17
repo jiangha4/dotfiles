@@ -19,13 +19,23 @@ set ignorecase              "Ignore cases when searching
 set smartcase               "Ignore case if search pattern is all lowercase
 
 set nowrap                  "Do not wrap lines
-set tabstop=4
-set shiftwidth=4
 set shiftround
 set expandtab
 set smartindent
 set autoindent
 set showmatch
+
+" by default, the indent is 2 spaces
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+
+" for python/js files, 4 spaces
+autocmd Filetype javascript setlocal ts=4 sw=4 sts=0
+autocmd Filetype python setlocal ts=4 sw=4 sts=0
+
+" no expandtab for makefiles
+autocmd Filetype make setlocal noexpandtab
 
 set wildignore=*.swp,*.bak,*.pyc,*.class  "Ignore these filetypes
 set title
@@ -53,5 +63,4 @@ endif
 nnoremap <Leader><Leader> :e#<CR>
 
 " NerdTree
-autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
