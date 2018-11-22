@@ -11,6 +11,7 @@ alias mkdir='mkdir -pv'
 alias lsa='ls -la'
 alias lsl='ls -l'
 alias home='cd ~'
+alias sb='source ~/.bashrc'
 
 #   Mac Specific alias
 #   --------------------------------------------------------
@@ -42,3 +43,21 @@ fi
              echo "'$1' is not a valid file"
          fi
     }
+
+
+#   Python virtual environments:
+#   https://github.com/registerguard/registerguard.github.com/wiki/Install-python,-virtualenv,
+#   -virtualenvwrapper-in-a-brew-environment
+#   -------------------------------------------------------------
+export WORKON_HOME=$HOME/.virtualenvs
+#export WORKON_HOME=/tmp/foo/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
+      source /usr/local/bin/virtualenvwrapper.sh
+    else
+          echo "WARNING: Can't find virtualenvwrapper.sh"
+        fi

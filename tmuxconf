@@ -17,4 +17,3 @@ bind r source-file ~/.tmux.conf
 
 # noise
 set-option -g visual-activity on
-
