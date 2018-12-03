@@ -1,4 +1,4 @@
-execute pathogen#infect()
+"execute pathogen#infect()
 set nocompatible
 
 "Syntax highlighting based on filetype
@@ -6,7 +6,7 @@ syntax on
 filetype plugin indent on
 
 set background=dark
-colorscheme solarized          "Color Scheme from plugin
+"colorscheme solarized          "Color Scheme from plugin
 set number                  "Line number
 set colorcolumn=90          "Line up column
 set hidden                  "Hides buffers

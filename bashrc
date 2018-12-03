@@ -1,4 +1,77 @@
-PS1="[\d \t] \w\$"
+#
+# Prompt Stuff
+# -----------------------------------------------------------------------------
+
+case ${TERM} in
+  hp | hpterm )
+    # HP-UX hpterm text color escape sequences (same as HP DeskJet PCL text color)
+    TEXT_BLACK="^[&v0S"
+    TEXT_DK_GRAY=""
+    TEXT_BLUE="^[&v4S"
+    TEXT_LT_BLUE=""
+    TEXT_GREEN="^[&v2S"
+    TEXT_LT_GREEN=""
+    TEXT_CYAN="^[&v6S"
+    TEXT_LT_CYAN=""
+    TEXT_RED="^[&v1S"
+    TEXT_LT_RED=""
+    TEXT_MAGENTA="^[&v5S"
+    TEXT_LT_MAGENTA=""
+    TEXT_BROWN=""
+    TEXT_YELLOW="^[&v3S"
+    TEXT_LT_GRAY=""
+    TEXT_WHITE="^[&v7S"
+    TEXT_NORMAL="^[&vS"
+    ;;
+  xterm )
+  # Bash shell text color escape sequences (used primarily by Linux)
+    TEXT_BLACK="\[\033[0;30m\]"
+    TEXT_DK_GRAY="\[\033[1;30m\]"
+    TEXT_BLUE="\[\033[0;34m\]"
+    TEXT_LT_BLUE="\[\033[1;34m\]"
+    TEXT_GREEN="\[\033[0;32m\]"
+    TEXT_LT_GREEN="\[\033[1;32m\]"
+    TEXT_CYAN="\[\033[0;36m\]"
+    TEXT_LT_CYAN="\[\033[1;36m\]"
+    TEXT_RED="\[\033[0;31m\]"
+    TEXT_LT_RED="\[\033[1;31m\]"
+    TEXT_MAGENTA="\[\033[0;35m\]"
+    TEXT_LT_MAGENTA="\[\033[1;35m\]"
+    TEXT_BROWN="\[\033[0;33m\]"
+    TEXT_YELLOW="\[\033[1;33m\]"
+    TEXT_LT_GRAY="\[\033[0;37m\]"
+    TEXT_WHITE="\[\033[1;37m\]"
+    TEXT_NORMAL="\[\033[0m\]"
+    ;;
+  * )
+  # Unknown terminal, so don't try to change text color
+    TEXT_BLACK=""
+    TEXT_DK_GRAY=""
+    TEXT_BLUE=""
+    TEXT_LT_BLUE=""
+    TEXT_GREEN=""
+    TEXT_LT_GREEN=""
+    TEXT_CYAN=""
+    TEXT_LT_CYAN=""
+    TEXT_RED=""
+    TEXT_LT_RED=""
+    TEXT_MAGENTA=""
+    TEXT_LT_MAGENTA=""
+    TEXT_BROWN=""
+    TEXT_YELLOW=""
+    TEXT_LT_GRAY=""
+    TEXT_WHITE=""
+    TEXT_NORMAL=""
+    ;;
+esac
+
+function parse_git_branch {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    echo "("${ref#refs/heads/}")"
+}
+# Set the generic prompt.
+PS1='\[\033]0;\w\007 \033[32m\]\u@\h \[\033[33m\w\033[0m\]
+$(parse_git_branch)->'
 
 #   alias
 #   --------------------------------------------------------
@@ -44,20 +117,25 @@ fi
          fi
     }
 
-
 #   Python virtual environments:
 #   https://github.com/registerguard/registerguard.github.com/wiki/Install-python,-virtualenv,
 #   -virtualenvwrapper-in-a-brew-environment
+#   HOME ENVIRONMENT
 #   -------------------------------------------------------------
-export WORKON_HOME=$HOME/.virtualenvs
-#export WORKON_HOME=/tmp/foo/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_RESPECT_VIRTUALENV=true
-if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
-      source /usr/local/bin/virtualenvwrapper.sh
-    else
-          echo "WARNING: Can't find virtualenvwrapper.sh"
-        fi
+if [ -f $HOME/.hp_alias ];
+then
+  source $HOME/.hp_alias
+else
+  export WORKON_HOME=$HOME/.virtualenvs
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+  export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+  export PIP_VIRTUALENV_BASE=$WORKON_HOME
+  export PIP_RESPECT_VIRTUALENV=true
+  if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+  else
+    echo "WARNING: Can't find virtualenvwrapper.sh"
+  fi
+fi
+
