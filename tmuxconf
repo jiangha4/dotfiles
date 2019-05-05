@@ -17,3 +17,6 @@ bind r source-file ~/.tmux.conf
 
 # noise
 set-option -g visual-activity on
+
+# copy paste
+set-option -g default-command "reattach-to-user-namespace -l bash"

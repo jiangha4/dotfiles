@@ -1,9 +1,13 @@
-"execute pathogen#infect()
+execute pathogen#infect()
 set nocompatible
 
 "Syntax highlighting based on filetype
 syntax on
 filetype plugin indent on
+
+set path+=**
+set wildmenu
+
 
 set background=dark
 "colorscheme solarized          "Color Scheme from plugin
@@ -37,6 +41,8 @@ autocmd Filetype python setlocal ts=4 sw=4 sts=0
 " no expandtab for makefiles
 autocmd Filetype make setlocal noexpandtab
 
+command! MakeTags !ctags -R .
+
 set wildignore=*.swp,*.bak,*.pyc,*.class  "Ignore these filetypes
 set title
 set visualbell
@@ -64,3 +70,6 @@ nnoremap <Leader><Leader> :e#<CR>
 
 " NerdTree
 map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

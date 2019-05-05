@@ -86,6 +86,10 @@ alias lsl='ls -l'
 alias home='cd ~'
 alias sb='source ~/.bashrc'
 
+alias ..="cd .."
+alias ...="cd ../.."
+alias .....="cd ../../.."
+
 #   Mac Specific alias
 #   --------------------------------------------------------
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -127,7 +131,7 @@ then
   source $HOME/.hp_alias
 else
   export WORKON_HOME=$HOME/.virtualenvs
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
   export PIP_VIRTUALENV_BASE=$WORKON_HOME
@@ -147,3 +151,4 @@ fi
 export LSCOLORS="hehxcxdxbxegedabagacad"
 alias ls='ls -lGH'
 
+export EDITOR=vim
