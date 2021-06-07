@@ -152,3 +152,4 @@ export LSCOLORS="hehxcxdxbxegedabagacad"
 alias ls='ls -lGH'
 
 export EDITOR=vim
+source "$HOME/.cargo/env"
